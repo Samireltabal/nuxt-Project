@@ -5,6 +5,7 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
+      dense
       app
     >
       <v-list>
@@ -14,6 +15,7 @@
           :to="item.to"
           router
           exact
+          :class="handleVisibility(item) ? '' : 'd-none'"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -92,9 +94,9 @@
 export default {
   data () {
     return {
-      clipped: false,
+      clipped: true,
       drawer: false,
-      fixed: false,
+      fixed: true,
       items: [
         {
           icon: 'mdi-apps',
@@ -105,12 +107,50 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-logout',
+          title: 'Logout',
+          logged_in: true,
+          to: '/logout'
+        },
+        {
+          icon: 'mdi-login',
+          title: 'Login',
+          guest_only: true,
+          to: '/login'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'
+    }
+  },
+  computed: {
+    logged_in () {
+      return this.$store.state.auth.loggedIn
+    },
+    token () {
+      return this.$auth.strategy.token.get()
+    }
+  },
+  mounted () {
+    this.$axios.setToken(this.token, 'Bearer')
+  },
+  methods: {
+    handleVisibility (item) {
+      if (item.logged_in) {
+        if (!this.logged_in) {
+          return false
+        }
+      }
+      if (item.guest_only) {
+        if (this.logged_in) {
+          return false
+        }
+      }
+      return true
     }
   }
 }

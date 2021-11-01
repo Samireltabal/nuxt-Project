@@ -8,6 +8,8 @@
       <v-card>
         <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
+          <br>
+          {{ $store.state.auth }}
         </v-card-title>
         <v-card-text>
           <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
@@ -75,3 +77,27 @@
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      response: {}
+    }
+  },
+  computed: {
+    token () {
+      return this.$auth.strategy.token.get()
+    }
+  },
+  mounted () {
+    this.ping()
+  },
+  methods: {
+    ping () {
+      this.$axios.get('ping').then((response) => {
+        this.response = response.data
+      })
+    }
+  }
+}
+</script>

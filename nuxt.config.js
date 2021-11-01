@@ -3,7 +3,6 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - syncProject',
@@ -15,7 +14,8 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'stylesheet/css', href: 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' }
     ]
   },
 
@@ -41,14 +41,64 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    { src: '@nuxtjs/axios', mode: 'client' },
+    { src: '@nuxtjs/auth-next', mode: 'client' },
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/i18n',
+      {
+        locales: ['en', 'ar'],
+        defaultLocale: 'en',
+        vueI18n: {
+          fallbackLocale: 'en',
+          messages: {
+            en: {
+              greeting: 'Hello world!',
+              login: 'Login'
+            },
+            ar: {
+              greeting: '¡Hola mundo!',
+              login: 'تسجيل دخول'
+            }
+          }
+        }
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
-
+  axios: {
+    BaseURL: 'https://app.synciteg.com/'
+  },
+  auth: {
+    strategies: {
+      laravelJWT: {
+        provider: 'laravel/jwt',
+        url: process.env.BASE_URL || 'https://app.synciteg.com/api/',
+        rewriteRedirects: true,
+        fullPathRedirect: true,
+        watchLoggedIn: false,
+        endpoints: {
+          login: { url: 'auth/login', method: 'post', propertyName: 'access_token' },
+          logout: { url: 'auth/logout', method: 'post' },
+          user: { url: 'auth/user', method: 'get' }
+        },
+        token: {
+          property: 'access_token',
+          maxAge: 60 * 60
+        },
+        refreshToken: {
+          maxAge: 20160 * 60
+        }
+      }
+    }
+  },
+  publicRuntimeConfig: {
+    axios: {
+      baseURL: process.env.vUE_APP_BASE_URL
+    }
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -59,8 +109,9 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    rtl: true,
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
