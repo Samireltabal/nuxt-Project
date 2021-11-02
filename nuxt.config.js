@@ -69,7 +69,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    BaseURL: 'https://app.synciteg.com/'
+    BaseURL: 'https://app.synciteg.com/api/'
   },
   auth: {
     strategies: {
@@ -96,7 +96,7 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.vUE_APP_BASE_URL
+      baseURL: process.env.VUE_APP_BASE_URL
     }
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa

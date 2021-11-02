@@ -106,7 +106,27 @@ export default {
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
+          logged_in: true,
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Dashboard',
+          logged_in: true,
+          to: '/dashboard'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Admin Panel',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin'
+        },
+        {
+          icon: 'mdi-account-multiple',
+          title: 'Users',
+          logged_in: true,
+          to: '/users'
         },
         {
           icon: 'mdi-logout',
@@ -133,6 +153,9 @@ export default {
     },
     token () {
       return this.$auth.strategy.token.get()
+    },
+    user () {
+      return this.$store.state.auth.user
     }
   },
   mounted () {
@@ -147,6 +170,11 @@ export default {
       }
       if (item.guest_only) {
         if (this.logged_in) {
+          return false
+        }
+      }
+      if (item.admin_only) {
+        if (this.user.role !== 'admin') {
           return false
         }
       }
