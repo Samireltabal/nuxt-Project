@@ -41,6 +41,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
+    '@nuxtjs/toast',
     { src: '@nuxtjs/axios', mode: 'client' },
     { src: '@nuxtjs/auth-next', mode: 'client' },
     // https://go.nuxtjs.dev/pwa
@@ -70,6 +71,10 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     BaseURL: 'https://app.synciteg.com/api/'
+  },
+  toast: {
+    position: 'top-center',
+    duration: '1000'
   },
   auth: {
     strategies: {

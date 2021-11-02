@@ -10,11 +10,21 @@
             <v-card-text>
               <v-flex class="mb-4">
                 <v-avatar size="96" class="mr-4">
-                  <img :src="'https://i.pravatar.cc/300'" alt="Avatar">
+                  <img :src="user.avatar" alt="Avatar">
                 </v-avatar>
-                <v-btn @click="openAvatarPicker">
-                  Change Avatar
+                <v-btn
+                  bordered
+                  bottom
+                  color="deep-purple accent-4"
+                  overlap
+                  icon
+                  offset-x="55"
+                  offset-y="55"
+                  @click="$refs.file.click()"
+                >
+                  <v-icon>mdi-camera-plus</v-icon>
                 </v-btn>
+                <input ref="file" type="file" style="display: none" @change="updateAvatar">
               </v-flex>
               <v-text-field
                 v-model="form.name"
@@ -30,7 +40,7 @@
               />
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary" :loading="loading" @click.native="update">
+              <v-btn color="primary" :loading="loading" @click.native="changeData">
                 <v-icon left dark>
                   mdi-check
                 </v-icon>
@@ -65,7 +75,7 @@
               />
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary" :loading="loading" @click.native="update">
+              <v-btn color="primary" :loading="loading" @click="changePassword">
                 <v-icon left dark>
                   mdi-check
                 </v-icon>
@@ -91,9 +101,9 @@ export default {
     return {
       loading: false,
       form: {
-        name: 'John',
-        phone: 'Doe',
-        email: 'john@doe.com'
+        name: null,
+        phone: null,
+        email: null
       },
       password: {
         old: null,
@@ -116,11 +126,47 @@ export default {
     }
   },
   methods: {
-    openAvatarPicker () {
-      this.showAvatarPicker = true
+    updateAvatar () {
+      // console.log(this.$refs.file.files[0])
+      const form = new FormData()
+      form.append('avatar', this.$refs.file.files[0])
+      this.$axios.post('auth/avatar', form).then(() => {
+        this.$toast.success('successfully updated')
+        this.$auth.fetchUser()
+      })
     },
-    selectAvatar (avatar) {
-      this.form.avatar = avatar
+    changePassword () {
+      this.loading = true
+      const data = {
+        form_type: 'password',
+        password: this.password.old,
+        new_password: this.password.new,
+        new_password_confirmation: this.password.new_confirmation
+      }
+      this.$axios.put('auth/user', data).then((response) => {
+        this.$toast.success(response.data.message)
+        this.loading = false
+      }).catch((err) => {
+        this.$toast.error(err.response.data.message)
+        this.loading = false
+      })
+    },
+    changeData () {
+      this.loading = true
+      const data = {
+        form_type: 'data',
+        name: this.form.name,
+        phone: this.form.phone,
+        email: this.form.email
+      }
+      this.$axios.put('auth/user', data).then((response) => {
+        this.$toast.success('successfully updated')
+        this.$auth.fetchUser()
+        this.loading = false
+      }).catch((err) => {
+        this.$toast.error(err.response.data.message)
+        this.loading = false
+      })
     }
   }
 }

@@ -65,9 +65,10 @@ export default {
             this.$axios.setToken(response.data.access_token, 'Bearer')
           })
           this.$auth.setUser(response.data.user_data)
+        }).catch((err) => {
+          this.$toast.error(err.response.data.message)
         }).finally(() => {
-          this.$auth.fetchUser()
-          this.$router.push('/')
+          // this.$auth.fetchUser()
         })
         // console.log(response)
       } catch (err) {
