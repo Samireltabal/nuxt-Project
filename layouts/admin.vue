@@ -73,6 +73,13 @@ export default {
           to: '/admin/accounts'
         },
         {
+          icon: 'mdi-account-multiple',
+          title: 'Customers',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/customers'
+        },
+        {
           icon: 'mdi-shield-lock',
           title: 'Roles',
           logged_in: true,
