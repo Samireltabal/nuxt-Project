@@ -59,13 +59,6 @@ export default {
       fixed: true,
       items: [
         {
-          icon: 'mdi-home',
-          title: 'Home Page',
-          logged_in: true,
-          admin_only: true,
-          to: '/'
-        },
-        {
           icon: 'mdi-home-analytics',
           title: 'Admin Panel Home',
           logged_in: true,
@@ -85,6 +78,13 @@ export default {
           logged_in: true,
           admin_only: true,
           to: '/admin/roles'
+        },
+        {
+          icon: 'mdi-home',
+          title: 'Back Home Page',
+          logged_in: true,
+          admin_only: true,
+          to: '/'
         },
         {
           icon: 'mdi-logout',
