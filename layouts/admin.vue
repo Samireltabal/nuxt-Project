@@ -17,12 +17,13 @@
           exact
           :class="handleVisibility(item) ? '' : 'd-none'"
         >
-          <v-list-item-action>
+          <v-list-item-action v-if="!item.is_divider">
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content v-if="!item.is_divider">
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
+          <v-divider v-if="item.is_divider" />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -85,6 +86,9 @@ export default {
           logged_in: true,
           admin_only: true,
           to: '/admin/roles'
+        },
+        {
+          is_divider: true
         },
         {
           icon: 'mdi-home',

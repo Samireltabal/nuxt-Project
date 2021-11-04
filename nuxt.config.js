@@ -47,6 +47,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/toast',
+    ['vue-sweetalert2/nuxt'],
     { src: '@nuxtjs/axios', mode: 'client' },
     { src: '@nuxtjs/auth-next', mode: 'client' },
     // https://go.nuxtjs.dev/pwa
@@ -72,7 +73,10 @@ export default {
       }
     ]
   ],
-
+  sweetalert: {
+    confirmButtonColor: '#41b882',
+    cancelButtonColor: '#ff7674'
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     BaseURL: 'https://app.synciteg.com/api/'

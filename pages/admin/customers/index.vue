@@ -36,7 +36,7 @@
               </v-row>
             </template>
             <template #[`item.options`]="{ item }">
-              <v-btn dark color="error" fab x-small @click="$toast.error(`delete request sent for ${item.id}`)">
+              <v-btn dark color="error" fab x-small @click="delete_customer(item.id)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
               <customer-form :is-customer="true" :customer="item" @updated="$fetch()" />
@@ -91,7 +91,6 @@ export default {
     ]
   }),
   async fetch () {
-    this.posts = []
     const uri = `profiles/list?search=${this.search}&per_page=${this.per_page}&page=${this.page}`
     this.posts = await this.$axios.$get(uri)
   },
@@ -128,7 +127,24 @@ export default {
     }
   },
   methods: {
-
+    delete_customer (id) {
+      this.$swal.fire({
+        title: 'هل انت متأكد ؟',
+        text: 'هل انت متأكد من الحذف',
+        icon: 'warning',
+        showCancelButton: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$axios.delete('/profiles/customer', { data: { customer_id: id } }).then((response) => {
+            this.$toast.success(response.data.message)
+            this.$fetch()
+          }).catch((err) => {
+            this.$toast.error(err.response.data.message)
+            this.$fetch()
+          })
+        }
+      })
+    }
   }
 }
 </script>

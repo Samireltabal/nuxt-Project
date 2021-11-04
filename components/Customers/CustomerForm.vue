@@ -63,6 +63,8 @@
               <v-text-field
                 v-model="form.name"
                 label="الإسم"
+                :error="handleValidationErrors('name').has_error"
+                :error-messages="handleValidationErrors('name').has_error ? handleValidationErrors('name').message : ''"
                 hint="إسم العميل"
               />
             </v-list-item-subtitle>
@@ -75,6 +77,8 @@
               <v-text-field
                 v-model="form.phone"
                 label="التليفون"
+                :error="handleValidationErrors('phone').has_error"
+                :error-messages="handleValidationErrors('phone').has_error ? handleValidationErrors('phone').message : ''"
                 hint="رقم تليفون العميل"
               />
             </v-list-item-subtitle>
@@ -87,8 +91,10 @@
               <v-select
                 v-model="form.gender"
                 label="النوع"
+                :error="handleValidationErrors('gender').has_error"
+                :error-messages="handleValidationErrors('phone').has_error ? handleValidationErrors('gender').message : ''"
                 hint="نوع العميل"
-                :items="['male','female']"
+                :items="['male','female','both']"
               />
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -125,7 +131,8 @@ export default {
       genders: [
         'male',
         'female'
-      ]
+      ],
+      errors: []
     }
   },
   mounted () {
@@ -147,9 +154,17 @@ export default {
           this.$emit('updated')
           this.dialog = false
         }).catch((err) => {
+          this.errors = err.response.data.errors
           this.$toast.error(err.response.data.message)
         })
       }
+    },
+    handleValidationErrors (name) {
+      const errorData = {
+        has_error: this.errors[name] != null,
+        message: this.errors[name]
+      }
+      return errorData
     }
   }
 }
