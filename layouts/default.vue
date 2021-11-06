@@ -116,6 +116,12 @@ export default {
           to: '/dashboard'
         },
         {
+          icon: 'mdi-wrench-outline',
+          title: 'Maintenance',
+          logged_in: true,
+          to: '/maintenance'
+        },
+        {
           icon: 'mdi-chart-bubble',
           title: 'Admin Panel',
           logged_in: true,
