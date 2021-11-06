@@ -1,11 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="6">
-      <pre>
-        {{ device }}
-      </pre>
-    </v-col>
-    <v-col cols="6">
+    <v-col cols="12">
       <v-row>
         <v-col cols="12">
           <v-combobox
@@ -54,6 +49,7 @@ export default {
     return {
       isLoading: false,
       search: null,
+      addRecord: false,
       newitem: false,
       description: null,
       device: null,
