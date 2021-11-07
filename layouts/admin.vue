@@ -74,11 +74,11 @@ export default {
           to: '/admin/accounts'
         },
         {
-          icon: 'mdi-account-multiple',
-          title: 'Parts',
+          icon: 'mdi-shield-lock',
+          title: 'Roles',
           logged_in: true,
           admin_only: true,
-          to: '/admin/parts'
+          to: '/admin/roles'
         },
         {
           icon: 'mdi-account-multiple',
@@ -88,11 +88,21 @@ export default {
           to: '/admin/customers'
         },
         {
-          icon: 'mdi-shield-lock',
-          title: 'Roles',
+          is_divider: true
+        },
+        {
+          icon: 'mdi-tools',
+          title: 'Parts',
           logged_in: true,
           admin_only: true,
-          to: '/admin/roles'
+          to: '/admin/parts'
+        },
+        {
+          icon: 'mdi-truck-cargo-container',
+          title: 'Suppliers',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/suppliers'
         },
         {
           is_divider: true

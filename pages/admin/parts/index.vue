@@ -157,6 +157,7 @@ export default {
     // moveStock,
     // AddToPurchaseOrder
   },
+  layout: 'admin',
   data () {
     return {
       searchTerm: null,
@@ -171,22 +172,31 @@ export default {
       parts: {}
     }
   },
+  async fetch () {
+    let uri = '/parts?'
+    uri += this.searchTerm ? 'search=' + this.searchTerm : ''
+    uri += `&per_page=${this.per_page}`
+    uri += `&page=${this.current_page}`
+    uri += this.in_stock_only ? '&in_stock=' + this.in_stock_only : ''
+    const response = await this.$axios.$get(uri)
+    this.parts = response
+    this.current_page = response.current_page
+  },
   watch: {
     searchTerm () {
-      this.fetchParts()
+      this.$fetch()
     },
     per_page () {
-      this.fetchParts()
+      this.$fetch()
     },
     in_stock_only () {
-      this.fetchParts()
+      this.$fetch()
     },
     current_page () {
-      this.fetchParts()
+      this.$fetch()
     }
   },
   mounted () {
-    this.fetchParts()
     // this.fetchInventories()
     // this.get_open_orders()
   },
@@ -198,16 +208,6 @@ export default {
     },
     fetchParts () {
       // &per_page=${this.per_page}${this.in_stock_only ? '&in_stock='. this.in_stock_only : '' }`
-      let uri = '/parts?'
-      uri += this.searchTerm ? 'search=' + this.searchTerm : ''
-      uri += `&per_page=${this.per_page}`
-      uri += `&page=${this.current_page}`
-      uri += this.in_stock_only ? '&in_stock=' + this.in_stock_only : ''
-      console.log(uri)
-      this.$axios.get(uri).then((response) => {
-        this.parts = response.data
-        this.current_page = response.data.current_page
-      })
     },
     addPart () {
       const data = {
