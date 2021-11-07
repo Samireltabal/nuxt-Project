@@ -75,6 +75,13 @@ export default {
         },
         {
           icon: 'mdi-account-multiple',
+          title: 'Parts',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/parts'
+        },
+        {
+          icon: 'mdi-account-multiple',
           title: 'Customers',
           logged_in: true,
           admin_only: true,
