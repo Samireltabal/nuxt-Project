@@ -48,6 +48,24 @@
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+    <v-bottom-sheet v-model="bottom_sheet" persistent>
+      <v-sheet
+        class="text-center"
+        height="200px"
+      >
+        <v-btn
+          class="mt-6"
+          text
+          color="red"
+          @click="$store.dispatch('closeAlert')"
+        >
+          تخطي
+        </v-btn>
+        <div class="py-3">
+          الوردية الحالية غير متطابقة مع التاريخ برجاء مراجعة مدير النظام
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </v-app>
 </template>
 
@@ -86,6 +104,16 @@ export default {
           logged_in: true,
           admin_only: true,
           to: '/admin/customers'
+        },
+        {
+          is_divider: true
+        },
+        {
+          icon: 'mdi-calendar',
+          title: 'Shifts',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/shift'
         },
         {
           is_divider: true
@@ -132,8 +160,17 @@ export default {
     token () {
       return this.$auth.strategy.token.get()
     },
+    valid_shift () {
+      return this.$store.state.shift_validity
+    },
+    bottom_sheet () {
+      return this.$store.state.alertShown
+    },
     user () {
       return this.$store.state.auth.user
+    },
+    shift () {
+      return this.$store.state.shift_data
     }
   },
   mounted () {

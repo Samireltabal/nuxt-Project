@@ -117,8 +117,8 @@
                           غير متاح
                         </td>
                         <td>
-                          <!-- <moveStock :model_id="item.id" model_type="part" :inventories="inventories" :is_part="true" @dataChanged="fetchParts" />
-                          <AddToPurchaseOrder :part_id="item.id" model_type="part" :open-orders="open_orders" :is_part="true" /> -->
+                          <moveStock :model-id="item.id" model-type="part" :inventories="inventories" :is-part="true" @dataChanged="fetchParts" />
+                          <AddToPurchaseOrder :part-id="item.id" model_type="part" :open-orders="open_orders" :is-part="true" />
                         </td>
                       </tr>
                     </tbody>
@@ -149,13 +149,13 @@
   </v-container>
 </template>
 <script>
-// import moveStock from '../../components/Admin/moveStock.vue'
-// import AddToPurchaseOrder from '../../components/Admin/AddToPurchaseOrder.vue'
+import moveStock from '../../../components/Admin/moveStock.vue'
+import AddToPurchaseOrder from '../../../components/Admin/AddToPurchaseOrder.vue'
 export default {
   name: 'Parts',
   components: {
-    // moveStock,
-    // AddToPurchaseOrder
+    moveStock,
+    AddToPurchaseOrder
   },
   layout: 'admin',
   data () {
@@ -198,11 +198,11 @@ export default {
   },
   mounted () {
     // this.fetchInventories()
-    // this.get_open_orders()
+    this.get_open_orders()
   },
   methods: {
     fetchInventories  () {
-      this.axios.get('admin/inventories/list').then((respone) => {
+      this.$axios.get('admin/inventories/list').then((respone) => {
         this.inventories = respone.data
       })
     },
@@ -224,7 +224,7 @@ export default {
       })
     },
     get_open_orders () {
-      this.axios.get('/orders/list?open_only=true').then((response) => {
+      this.$axios.get('/orders/list?open_only=true').then((response) => {
         this.open_orders = response.data
       })
     }

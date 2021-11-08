@@ -63,7 +63,7 @@
               x-small
               class="mx-1 my-1"
               dark
-              @click="$router.push(`/orders?supplier=${item.id}`)"
+              @click="$router.push(`/admin/orders/list?supplier=${item.id}`)"
             >
               <v-icon>mdi-receipt</v-icon>
             </v-btn>
