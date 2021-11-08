@@ -117,7 +117,7 @@
                           غير متاح
                         </td>
                         <td>
-                          <moveStock :model-id="item.id" model-type="part" :inventories="inventories" :is-part="true" @dataChanged="fetchParts" />
+                          <moveStock :model-id="item.id" model-type="part" :inventories="inventories" :is-part="true" @dataChanged="$fetch()" />
                           <AddToPurchaseOrder :part-id="item.id" model_type="part" :open-orders="open_orders" :is-part="true" />
                         </td>
                       </tr>
@@ -197,13 +197,13 @@ export default {
     }
   },
   mounted () {
-    // this.fetchInventories()
+    this.fetchInventories()
     this.get_open_orders()
   },
   methods: {
     fetchInventories  () {
-      this.$axios.get('admin/inventories/list').then((respone) => {
-        this.inventories = respone.data
+      this.$axios.get('admin/inventories/list').then((response) => {
+        this.inventories = response.data
       })
     },
     fetchParts () {

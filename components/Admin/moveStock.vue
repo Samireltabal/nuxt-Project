@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     submitMove () {
-      this.axios.post('admin/inventories/stock/move', this.data).then(() => {
+      this.$axios.post('admin/inventories/stock/move', this.data).then(() => {
         this.dialog = false
         this.from = null
         this.to = null

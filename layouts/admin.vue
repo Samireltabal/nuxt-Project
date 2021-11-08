@@ -133,7 +133,21 @@ export default {
           to: '/admin/suppliers'
         },
         {
+          icon: 'mdi-store',
+          title: 'Inventories',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/inventories'
+        },
+        {
           is_divider: true
+        },
+        {
+          icon: 'mdi-tools',
+          title: 'Settings',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/settings'
         },
         {
           icon: 'mdi-home',
