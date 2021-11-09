@@ -132,7 +132,6 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$axios.delete('/admin/settings/maintainence/state', { data: { id: state.id } }).then((response) => {
-            console.log(response.data)
             this.$swal.fire(
               'تم الحذف',
               'تم حذف الحاله',
@@ -178,7 +177,6 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$axios.delete('/admin/settings/maintainence/event', { data: { id: state.id } }).then((response) => {
-            console.log(response.data)
             this.$swal.fire(
               'تم الحذف',
               'تم حذف الحاله',

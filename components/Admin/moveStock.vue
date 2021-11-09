@@ -98,7 +98,7 @@ export default {
         this.quantity = null
         this.$emit('dataChanged')
       }).catch((err) => {
-        this.$store.dispatch('notify', err.response.data.message)
+        this.$toast.error(err.response.data.message)
       })
     }
   }

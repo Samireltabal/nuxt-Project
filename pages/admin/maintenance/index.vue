@@ -126,12 +126,13 @@
   </v-layout>
 </template>
 <script>
-import AddrecordForm from '../../components/Maintenance/AddrecordForm.vue'
+import AddrecordForm from '../../../components/Maintenance/AddrecordForm.vue'
 export default {
   name: 'Maintenence',
   components: {
     AddrecordForm
   },
+  layout: 'admin',
   data () {
     return {
       device: {},

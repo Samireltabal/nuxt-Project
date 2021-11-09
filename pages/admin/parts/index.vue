@@ -215,12 +215,12 @@ export default {
         description: this.part_description
       }
       this.$axios.post('/parts', data).then(() => {
-        this.fetchParts()
+        this.$fetch()
         this.dialog = false
         this.part_name = null
         this.part_description = null
       }).catch((err) => {
-        this.$store.dispatch('notify', err.response.data.message)
+        this.$toast.success(err.response.data.message)
       })
     },
     get_open_orders () {

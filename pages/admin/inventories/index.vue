@@ -63,6 +63,9 @@
                     <thead>
                       <tr>
                         <th>
+                          رقم
+                        </th>
+                        <th>
                           اسم المخزن
                         </th>
                         <th>
@@ -78,8 +81,9 @@
                         v-for="inventory in inventories"
                         :key="inventory.id"
                       >
+                        <td>{{ inventory.id }}</td>
                         <td>{{ inventory.inventory_name }}</td>
-                        <td v-if="inventory.saleable">
+                        <td v-if="inventory.sellable">
                           <v-icon color="success">
                             mdi-check
                           </v-icon>
@@ -115,7 +119,8 @@
 </template>
 <script>
 export default {
-  name: 'Parts',
+  name: 'Inventories',
+  layout: 'admin',
   data () {
     return {
       searchTerm: null,

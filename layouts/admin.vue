@@ -71,6 +71,7 @@
 
 <script>
 export default {
+  middleware: ['admin'],
   data () {
     return {
       clipped: true,
@@ -104,6 +105,13 @@ export default {
           logged_in: true,
           admin_only: true,
           to: '/admin/customers'
+        },
+        {
+          icon: 'mdi-wrench-outline',
+          title: 'Maintenance',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/maintenance'
         },
         {
           is_divider: true

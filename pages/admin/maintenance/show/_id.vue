@@ -161,9 +161,9 @@
   </v-layout>
 </template>
 <script>
-import StateBox from '../../../components/Maintenance/StateBox.vue'
-import addEvent from '../../../components/Maintenance/addEvent.vue'
-import addPart from '../../../components/Maintenance/addPart.vue'
+import StateBox from '../../../../components/Maintenance/StateBox.vue'
+import addEvent from '../../../../components/Maintenance/addEvent.vue'
+import addPart from '../../../../components/Maintenance/addPart.vue'
 export default {
   name: 'ShowRecord',
   components: {
@@ -171,6 +171,7 @@ export default {
     addEvent,
     addPart
   },
+  layout: 'admin',
   data () {
     return {
       record: {

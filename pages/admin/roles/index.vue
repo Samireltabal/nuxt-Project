@@ -40,7 +40,7 @@
 </template>
 <script>
 export default {
-  name: 'الصلاحيات',
+  name: 'Roles',
   layout: 'admin',
   middleware: ['admin'],
   data: () => ({

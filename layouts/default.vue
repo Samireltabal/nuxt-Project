@@ -92,6 +92,7 @@
 
 <script>
 export default {
+  middleware: ['shift'],
   data () {
     return {
       clipped: true,
