@@ -134,6 +134,13 @@ export default {
           to: '/admin/parts'
         },
         {
+          icon: 'mdi-shopping-cart',
+          title: 'Products',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/products'
+        },
+        {
           icon: 'mdi-truck-cargo-container',
           title: 'Suppliers',
           logged_in: true,

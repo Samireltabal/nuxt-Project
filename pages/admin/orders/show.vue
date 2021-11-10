@@ -122,7 +122,7 @@
             <span v-if="item.purchasable_type == 'Syncit\\MaintenanceCenter\\Models\\Part'">
               {{ item.purchasable.part_name }}
             </span>
-            <span v-if="item.purchasable_type == 'App\\Models\\Products\\Product'">
+            <span v-if="item.purchasable_type == 'Synciteg\\PosSystem\\Models\\Product'">
               {{ item.purchasable.product_name }}
             </span>
           </template>
@@ -130,7 +130,7 @@
             <span v-if="item.purchasable_type == 'Syncit\\MaintenanceCenter\\Models\\Part'">
               قطع غيار
             </span>
-            <span v-if="item.purchasable_type == 'App\\Models\\Products\\Product'">
+            <span v-if="item.purchasable_type == 'Synciteg\\PosSystem\\Models\\Product'">
               منتجات
             </span>
           </template>

@@ -118,6 +118,12 @@ export default {
         },
         {
           icon: 'mdi-wrench-outline',
+          title: 'Sales',
+          logged_in: true,
+          to: '/Sales'
+        },
+        {
+          icon: 'mdi-wrench-outline',
           title: 'Maintenance',
           logged_in: true,
           to: '/maintenance'
