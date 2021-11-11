@@ -6,6 +6,12 @@
           <h3>الحسابات</h3>
         </v-col>
         <v-col cols="12">
+          <v-text-field v-model="newRole" label="إسم الدور" hint="إسم الدور الذي تود إضافته" />
+          <v-btn color="success" @click="addRole">
+            <v-icon>mdi-plus</v-icon> إضافة
+          </v-btn>
+        </v-col>
+        <v-col cols="12">
           <v-data-table
             :headers="headers"
             :items="roles"
@@ -44,6 +50,7 @@ export default {
   layout: 'admin',
   middleware: ['admin'],
   data: () => ({
+    newRole: '',
     posts: [],
     roles: [],
     search: null,
@@ -86,6 +93,14 @@ export default {
       this.$axios.post('/auth/roles/attach', data).then((response) => {
         this.$toast.success(response.data.message)
       }).finally(() => {
+        this.$fetch()
+      })
+    },
+    addRole () {
+      const data = {
+        role_name: this.newRole
+      }
+      this.$axios.post('/auth/roles/create', data).then(() => {
         this.$fetch()
       })
     },

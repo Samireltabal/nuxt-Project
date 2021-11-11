@@ -15,10 +15,17 @@
         </footer>
       </blockquote>
     </v-col>
+    <v-col>
+      <add-expense />
+    </v-col>
   </v-row>
 </template>
 <script>
+import AddExpense from '../../components/Admin/addExpense.vue'
 export default {
+  components: {
+    AddExpense
+  },
   layout: 'admin',
   middleware: 'admin'
 }

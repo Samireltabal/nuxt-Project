@@ -21,14 +21,14 @@
           <v-list-item> الطلبات المغلقة : {{ shift.ClosedOrdersCount }} طلب</v-list-item>
           <v-list-item>إجمالي المشتريات : {{ shift.TotalPaid }} جنيه</v-list-item>
           <v-list-item>
-            <!-- <v-list-group>
+            <v-list-group>
               <template #[`activator`]>
                 إجمالي المصاريف : {{ shift.TotalExpenses }} جنيه
               </template>
               <v-list-item v-for="expense in shift.expenses" :key="expense.id">
                 {{ expense.expense_name }} || {{ expense.value }} جنيه
               </v-list-item>
-            </v-list-group> -->
+            </v-list-group>
           </v-list-item>
           <v-list-item />
         </v-list>

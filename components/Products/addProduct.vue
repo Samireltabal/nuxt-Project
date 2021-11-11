@@ -133,7 +133,6 @@ export default {
       })
     },
     categoryChanged (event) {
-      console.log(event)
     },
     prepareForNewCategory () {
       this.new_category = true

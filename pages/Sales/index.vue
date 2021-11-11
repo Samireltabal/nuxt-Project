@@ -287,7 +287,6 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          console.log(this.selected_invoice)
         }
       }
     }
