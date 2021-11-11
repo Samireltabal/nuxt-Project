@@ -1,0 +1,11 @@
+<template>
+  <v-layout>
+    <v-row>
+      <v-col>
+        <h3>
+          iptv
+        </h3>
+      </v-col>
+    </v-row>
+  </v-layout>
+</template>
