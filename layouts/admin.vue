@@ -141,6 +141,13 @@ export default {
           to: '/admin/products'
         },
         {
+          icon: 'mdi-youtube-tv',
+          title: 'Iptv',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/iptv'
+        },
+        {
           icon: 'mdi-truck-cargo-container',
           title: 'Suppliers',
           logged_in: true,
