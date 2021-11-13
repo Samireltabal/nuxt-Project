@@ -47,7 +47,7 @@
           </v-col>
           <v-col cols="12">
             <v-select
-              v-model="category_id"
+              v-model="product_type"
               label="نوع المنتج"
               :items="['منتج','خدمة']"
               clearable
@@ -95,7 +95,7 @@ export default {
       return {
         product_name: this.name,
         newCategory: this.new_category,
-        product_type: 'منتج',
+        product_type: this.product_type,
         original_price: this.price,
         category_id: this.new_category ? null : this.category_id,
         category: this.new_category ? this.new_category_name : null

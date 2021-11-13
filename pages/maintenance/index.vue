@@ -114,14 +114,6 @@
           </div>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          <h3>Returned Data</h3>
-          <p>
-            {{ device }}
-          </p>
-        </v-col>
-      </v-row>
     </v-container>
   </v-layout>
 </template>
@@ -152,6 +144,7 @@ export default {
         { text: 'العميل منتظر', value: 'is_waiting' },
         { text: 'الحالة', value: 'state.state_name' },
         { text: 'العطل', value: 'problem' },
+        { text: 'كود', value: 'barcode' },
         { text: ' تاريخ انشاء السجل', value: 'created_at' },
         { text: 'خيارات', value: 'options' }
       ]
@@ -182,10 +175,13 @@ export default {
   },
   mounted () {
     if (this.$route.query.per_page) {
-      this.per_page = this.$route.query.per_page
+      this.per_page = parseInt(this.$route.query.per_page)
     }
     if (this.$route.query.page) {
-      this.page = this.$route.query.page
+      this.page = parseInt(this.$route.query.page)
+    }
+    if (this.$route.query.openform) {
+      this.showForm = true
     }
     this.fetchStates()
   },
@@ -199,6 +195,14 @@ export default {
       })
     },
     printReport (event) {
+    },
+    showBarcode (id) {
+      const uri = `/print/barcode/maintenance/${id}`
+      window.open(uri, 'print barcode', 'width=400')
+    },
+    showA5 (id) {
+      const uri = `/print/a5/maintenance/${id}`
+      window.open(uri, 'print reciept', 'width=400')
     }
   }
 }

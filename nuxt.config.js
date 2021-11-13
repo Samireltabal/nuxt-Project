@@ -30,7 +30,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/luxon.js'
+    '~/plugins/luxon.js',
+    { src: '~/plugins/html2pdf', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

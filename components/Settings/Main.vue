@@ -33,7 +33,7 @@
           v-for="item in settings"
           :key="item.name"
           v-model="item.val"
-          :label="item.label"
+          :label="item.name"
           outlined
           :prepend-icon="item.icon"
           :class="item.class"

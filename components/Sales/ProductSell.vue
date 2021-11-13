@@ -104,6 +104,7 @@ export default {
       if (this.barcode == null) {
         this.barcodeReturn = {}
         this.price = null
+        this.quantity = 1
         this.sellable_type = 'يجب مسح الباركود اولاً'
         this.price_disabled = true
         return
@@ -111,6 +112,7 @@ export default {
       this.selling_price = 0
       this.addDiscount = false
       this.discount = 0
+      this.quantity = 1
       const data = {
         barcode: this.barcode
       }

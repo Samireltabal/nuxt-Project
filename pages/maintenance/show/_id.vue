@@ -21,14 +21,14 @@
             color="success"
             class="mx-2"
             dark
-            @click="$router.push('/maintainence/new')"
+            @click="$router.push('/maintenance?openform=true')"
           >
             <v-icon>mdi-folder-plus</v-icon>  سجل جديد
           </v-btn>
           <v-btn
             color="indigo"
             dark
-            @click="$router.push('/maintainence/list')"
+            @click="$router.push('/maintenance')"
           >
             <v-icon color="text-right mr-2">
               mdi-folder-multiple
@@ -202,12 +202,12 @@ export default {
       })
     },
     showBarcode (id) {
-      const uri = `/print/a5/${id}`
+      const uri = `/print/barcode/maintenance/${id}`
       window.open(uri, 'print barcode', 'width=400')
     },
     showA5 (id) {
-      const uri = `${process.env.VUE_APP_MAINTAINENCE_A5_URI}${id}/1`
-      window.open(uri, 'print recipet', 'width=400')
+      const uri = `/print/a5/maintenance/${id}`
+      window.open(uri, 'print reciept', 'width=400')
     }
   }
 }

@@ -17,6 +17,11 @@
           <v-list-item>وقت الفتح : {{ $luxon(shift.created_at) }}</v-list-item>
           <v-list-item>الساعة الأن : {{ $luxon(shift.now) }}</v-list-item>
           <v-list-item>فتح بواسطة : {{ shift.user ? shift.user.name : '' }}</v-list-item>
+          <v-list-item>إيراد المبيعات : {{ shift.TotalProductsIncome ? shift.TotalProductsIncome.products : 'n/a' }} جنيه</v-list-item>
+          <v-list-item>إيراد الخدمات : {{ shift.TotalProductsIncome ? shift.TotalProductsIncome.services : 'n/a' }} جنيه</v-list-item>
+          <v-list-item>إيراد المبيعات الكلي : {{ shift.TotalProductsIncome ? shift.TotalProductsIncome.total : 'n/a' }} جنيه</v-list-item>
+          <v-list-item>إيراد الصيانة : {{ shift.TotalServiceIncome }} جنيه</v-list-item>
+          <v-list-item>إجمالي الإيراد : {{ shift.TotalIncome }} جنيه</v-list-item>
           <v-list-item>إجمالي الطلبات : {{ shift.OrdersCount }} طلب</v-list-item>
           <v-list-item> الطلبات المغلقة : {{ shift.ClosedOrdersCount }} طلب</v-list-item>
           <v-list-item>إجمالي المشتريات : {{ shift.TotalPaid }} جنيه</v-list-item>
