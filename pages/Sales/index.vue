@@ -158,10 +158,26 @@
                               {{ item.id }}
                             </td>
                             <td class="text-center">
-                              {{ item.invoicable_type === "Synciteg\\PosSystem\\Models\\Product" ? "مبيعات" : "صيانة" }}
+                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
+                                مبيعات
+                              </span>
+                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
+                                IPTV
+                              </span>
+                              <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
+                                صيانة
+                              </span>
                             </td>
                             <td class="text-center">
-                              {{ item.invoicable_type === "Synciteg\\PosSystem\\Models\\Product" ? item.invoicable.product_name : item.invoicable.device.device_name }}
+                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
+                                {{ item.invoicable.product_name }}
+                              </span>
+                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
+                                {{ item.invoicable.ServerName }}
+                              </span>
+                              <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
+                                {{ item.invoicable.device.device_name }}
+                              </span>
                             </td>
                             <td class="text-center">
                               <span :class="item.discount > 0 ? 'text-decoration-line-through' : ''">{{ item.invoicable_type === "Synciteg\\PosSystem\\Models\\Product" ? item.invoicable.original_price : item.selling_price }}</span> <span :class="item.discount > 0 ? '' : 'd-none' ">|| {{ item.selling_price }}</span>
@@ -292,10 +308,10 @@ export default {
     }
   },
   watch: {
-    // selected_invoice (val) {
-    //   this.$router.replace({ path: this.$route.path, query: { invoice: val } })
-    //   this.get_invoice()
-    // }
+    selected_invoice (val) {
+      // this.$router.replace({ path: this.$route.path, query: { invoice: val } })
+      this.$fetch()
+    }
   },
   mounted () {
     // this.selected_invoice = this.$route.query.invoice

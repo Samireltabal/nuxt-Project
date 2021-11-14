@@ -47,15 +47,18 @@
                 >
                   <template slot="item" slot-scope="data">
                     <!-- HTML that describe how select should render items when the select is open -->
-                    {{ data.item.server_name }} - ( {{ data.item.CodesCount }} )
+                    {{ data.item.server_name }}
                   </template>
                 </v-select>
+                <v-alert v-if="!getCountOfServer(selected_server)" color="error" dark>
+                  لم تقم بأختيار السيرفر او لا يوجد اكواد متوفرة
+                </v-alert>
               </v-card>
 
               <v-btn
                 color="#16a085"
                 dark
-                :disabled="!selected_server"
+                :disabled="!getCountOfServer(selected_server)"
                 @click="e1 = 2"
               >
                 إستمرار
@@ -88,28 +91,44 @@
                 إستمرار
               </v-btn>
 
-              <v-btn text>
-                Cancel
+              <v-btn text @click="finishIptvProcess">
+                الغاء
               </v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="3">
               <v-card
                 class="mb-12"
-                height="200px"
               >
-                <h4>تم التفعيل بنجاح</h4>
-                <v-btn @click="getCode(request_data.id)">إضغط هنا لإظهار الكود</v-btn>
-                <v-span v-if="codeFetched">
+                <h4 class="text-center my-2">
+                  تم التفعيل بنجاح
+                </h4>
+                <v-btn
+                  class="text-center"
+                  color="#16a085"
+                  dark
+                  block
+                  :loading="fetchingCode"
+                  large
+                  @click="getCode(request_data.id)"
+                >
+                  إضغط هنا لإظهار الكود
+                </v-btn>
+                <span v-if="codeFetched">
                   <v-list>
                     <v-list-item>
-                      إسم العميل : {{ code_data.customer.customer_name }}
+                      إسم العميل : {{ code_data.customer.name }}
                     </v-list-item>
                     <v-list-item>
-                      نوع السيرفر : {{ code_data.server.server_name }}
+                      نوع السيرفر : {{ code_data.ServerName }}
                     </v-list-item>
-                    <v-list-item>
-                      كود التفعيل : {{ code_data.code.code }}
+                    <v-list-item color="#16a085">
+                      <v-chip color="#16a085" dark x-large>
+                        كود التفعيل : {{ code_data.code.code }}
+                      </v-chip>
+                      <small class="mx-2">
+                        يجب كتابة الكود الأن : لن يظهر مرة اخرى
+                      </small>
                     </v-list-item>
                     <v-list-item>
                       صالح حتى : {{ code_data.end_date }}
@@ -118,17 +137,16 @@
                       السعر : {{ code_data.price }}
                     </v-list-item>
                   </v-list>
-                </v-span>
+                </span>
               </v-card>
               <v-btn
-                color="primary"
-                @click="e1 = 1"
+                color="#16a085"
+                large
+                :dark="codeFetched"
+                :disabled="!codeFetched"
+                @click="finishIptvProcess"
               >
-                Continue
-              </v-btn>
-
-              <v-btn text>
-                Cancel
+                إنهاء
               </v-btn>
             </v-stepper-content>
           </v-stepper-items>
@@ -151,6 +169,7 @@ export default {
       selected_server: null,
       price_set: null,
       request_data: {},
+      fetchingCode: false,
       codeFetched: false,
       code_data: {},
       customer_id: null,
@@ -178,9 +197,12 @@ export default {
       })
     },
     getCode (id) {
+      this.fetchingCode = true
       this.$axios.post('pos/iptv/show', { code_id: id }).then((response) => {
         this.codeFetched = true
         this.code_data = response.data
+      }).finally(() => {
+        this.fetchingCode = false
       })
     },
     customerFetched (val) {
@@ -194,6 +216,25 @@ export default {
         this.e1 = 3
         this.request_data = response.data
       })
+    },
+    getCountOfServer (id) {
+      const found = this.servers.find(e => e.id === id)
+      if (found) {
+        return found.CodesCount
+      } else {
+        return null
+      }
+    },
+    finishIptvProcess () {
+      this.fetchServers()
+      this.e1 = 1
+      this.device_type = null
+      this.request_data = {}
+      this.codeFetched = false
+      this.code_data = {}
+      this.selected_server = null
+      this.price_set = null
+      this.customer_id = null
     }
   }
 }
