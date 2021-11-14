@@ -21,9 +21,10 @@
           <v-list-item>إيراد الخدمات : {{ shift.TotalProductsIncome ? shift.TotalProductsIncome.services : 'n/a' }} جنيه</v-list-item>
           <v-list-item>إيراد المبيعات الكلي : {{ shift.TotalProductsIncome ? shift.TotalProductsIncome.total : 'n/a' }} جنيه</v-list-item>
           <v-list-item>إيراد الصيانة : {{ shift.TotalServiceIncome }} جنيه</v-list-item>
+          <v-list-item>إيراد (iptv) : {{ shift.TotalIptvIncome }} جنيه</v-list-item>
           <v-list-item>إجمالي الإيراد : {{ shift.TotalIncome }} جنيه</v-list-item>
           <v-list-item>إجمالي الطلبات : {{ shift.OrdersCount }} طلب</v-list-item>
-          <v-list-item> الطلبات المغلقة : {{ shift.ClosedOrdersCount }} طلب</v-list-item>
+          <v-list-item>الطلبات المغلقة : {{ shift.ClosedOrdersCount }} طلب</v-list-item>
           <v-list-item>إجمالي المشتريات : {{ shift.TotalPaid }} جنيه</v-list-item>
           <v-list-item>
             <v-list-group>
