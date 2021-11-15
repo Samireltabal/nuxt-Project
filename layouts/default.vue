@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
+      :clipped="true"
       fixed
       dense
       app
@@ -31,33 +31,14 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
       <v-btn
         icon
         @click.stop="clipped = !clipped"
       >
         <v-icon>mdi-application</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container fluid>
@@ -96,60 +77,48 @@ export default {
   data () {
     return {
       clipped: true,
-      drawer: false,
+      drawer: true,
       fixed: true,
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'الرئيسية',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          logged_in: true,
-          to: '/inspire'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Dashboard',
+          icon: 'mdi-account',
+          title: 'حسابي',
           logged_in: true,
           to: '/dashboard'
         },
         {
-          icon: 'mdi-wrench-outline',
-          title: 'Sales',
+          icon: 'mdi-cart-plus',
+          title: 'المبيعات',
           logged_in: true,
           to: '/Sales'
         },
         {
           icon: 'mdi-wrench-outline',
-          title: 'Maintenance',
+          title: 'الصيانة',
           logged_in: true,
           to: '/maintenance'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Admin Panel',
+          icon: 'mdi-tools',
+          title: 'لوحة تحكم الإدارة',
           logged_in: true,
           admin_only: true,
           to: '/admin'
         },
         {
-          icon: 'mdi-account-multiple',
-          title: 'Users',
-          logged_in: true,
-          to: '/users'
-        },
-        {
           icon: 'mdi-logout',
-          title: 'Logout',
+          title: 'تسجيل خروج',
           logged_in: true,
           to: '/logout'
         },
         {
           icon: 'mdi-login',
-          title: 'Login',
+          title: 'تسجيل دخول',
           guest_only: true,
           to: '/login'
         }

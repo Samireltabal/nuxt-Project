@@ -7,7 +7,32 @@
       <iptv-query />
     </v-col>
     <v-col>
-      large
+      <v-card
+        flat
+        outlined
+        tile
+      >
+        <v-card-title>بيانات اليومية</v-card-title>
+        <v-card-text>
+          <v-list>
+            <v-list-item>
+              تاريخ اليومية : {{ $luxon($store.state.shift_data.created_at) }}
+            </v-list-item>
+            <v-list-item>
+              تاريخ اليوم : {{ $luxon($store.state.shift_data.now) }}
+            </v-list-item>
+            <v-list-item>
+              حالة اليومية :
+              <v-chip class="mx-2" small :color="$store.state.shift_validity ? 'success' : 'error' ">
+                {{ $store.state.shift_validity ? 'جيد' : 'برجاء مراجعة مدير النظام' }}
+              </v-chip>
+            </v-list-item>
+            <v-list-item>
+              إسم الموظف : {{ $store.$auth.state.user.name }}
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+      </v-card>
     </v-col>
   </v-row>
 </template>

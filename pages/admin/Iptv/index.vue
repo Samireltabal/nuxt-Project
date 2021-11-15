@@ -2,6 +2,23 @@
   <v-container>
     <v-row>
       <v-col>
+        <v-btn
+          block
+          color="indigo"
+          class="rounded-0"
+          dark
+          flat
+          elevation="0"
+          @click="$router.push('/admin/iptv/new')"
+        >
+          <v-icon class="mx-2">
+            mdi-youtube-tv
+          </v-icon> إضافة سيرفر جديد
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <v-data-table dense :headers="headers" :items="list" :loading="loading">
           <template #[`item.created_at`]="{ item }">
             {{ $luxon(item.created_at) }}

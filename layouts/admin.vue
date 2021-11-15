@@ -134,7 +134,7 @@ export default {
           to: '/admin/parts'
         },
         {
-          icon: 'mdi-shopping-cart',
+          icon: 'mdi-cart-plus',
           title: 'Products',
           logged_in: true,
           admin_only: true,

@@ -1,6 +1,6 @@
 <template>
   <v-layout app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12">
           <v-btn block color="indigo" dark @click="showForm = !showForm">
