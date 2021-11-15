@@ -14,7 +14,7 @@
             </v-chip>
           </template>
           <template #[`item.options`]="{ item }">
-            <v-btn color="success" fab x-small class="mx-1 my-1" @click="$router.push(`/admin/orders/show?order=${item.id}`)">
+            <v-btn color="success" fab x-small class="mx-1 my-1" @click="$router.push(`/admin/iptv/${item.id}`)">
               <v-icon>mdi-eye</v-icon>
             </v-btn>
             <v-btn
@@ -23,7 +23,6 @@
               x-small
               class="mx-1 my-1"
               dark
-              @click="alert(item.id)"
             >
               <v-icon>mdi-delete</v-icon>
             </v-btn>

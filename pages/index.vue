@@ -4,7 +4,7 @@
       <barcode-scanner />
     </v-col>
     <v-col>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum atque neque sed, autem ut reiciendis aperiam magnam possimus veritatis magni culpa itaque fugit est fuga velit modi sapiente eos? Eos!
+      <iptv-query />
     </v-col>
     <v-col>
       large
@@ -13,9 +13,11 @@
 </template>
 <script>
 import BarcodeScanner from '../components/Widgets/barcode.vue'
+import IptvQuery from '../components/Widgets/iptv/query.vue'
 export default {
   components: {
-    BarcodeScanner
+    BarcodeScanner,
+    IptvQuery
   },
   data () {
     return {

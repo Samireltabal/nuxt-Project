@@ -314,7 +314,9 @@ export default {
     }
   },
   mounted () {
-    // this.selected_invoice = this.$route.query.invoice
+    if (this.$route.query.tab) {
+      this.tab = this.$route.query.tab
+    }
     this.list_open_invoices()
     // this.get_invoice()
   },
