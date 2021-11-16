@@ -32,12 +32,6 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
     </v-app-bar>
     <v-main>
@@ -123,7 +117,7 @@ export default {
           to: '/login'
         }
       ],
-      miniVariant: false,
+      miniVariant: true,
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'

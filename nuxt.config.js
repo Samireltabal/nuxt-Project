@@ -32,6 +32,7 @@ export default {
   plugins: [
     '~/plugins/luxon.js',
     { src: '~/plugins/html2pdf', mode: 'client' }
+    // { src: '~/plugins/vue-chart', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
