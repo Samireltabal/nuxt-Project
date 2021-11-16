@@ -48,24 +48,6 @@
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
-    <v-bottom-sheet v-model="bottom_sheet" persistent>
-      <v-sheet
-        class="text-center"
-        height="200px"
-      >
-        <v-btn
-          class="mt-6"
-          text
-          color="red"
-          @click="$store.dispatch('closeAlert')"
-        >
-          تخطي
-        </v-btn>
-        <div class="py-3">
-          الوردية الحالية غير متطابقة مع التاريخ برجاء مراجعة مدير النظام
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
   </v-app>
 </template>
 
@@ -207,6 +189,22 @@ export default {
     },
     shift () {
       return this.$store.state.shift_data
+    }
+  },
+  watch: {
+    bottom_sheet: {
+      immediate: true,
+      handler (val) {
+        if (val) {
+          this.$swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'الوردية الحالية غير متطابقة مع التاريخ برجاء مراجعة مدير النظام',
+            showConfirmButton: false,
+            showCloseButton: true
+          })
+        }
+      }
     }
   },
   mounted () {

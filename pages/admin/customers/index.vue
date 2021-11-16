@@ -9,7 +9,7 @@
           <v-data-table
             :headers="headers"
             :items="posts.data"
-            item-key="name"
+            item-key="id"
             hide-default-footer
             class="elevation-1"
           >
