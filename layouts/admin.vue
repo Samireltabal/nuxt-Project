@@ -106,6 +106,13 @@ export default {
           to: '/admin/shift'
         },
         {
+          icon: 'mdi-calendar',
+          title: 'Reports',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/reports'
+        },
+        {
           is_divider: true
         },
         {
