@@ -3,30 +3,27 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <h3>إدارة المبيعات</h3>
+          <h3>
+            إدارة المبيعات
+            <v-switch
+              v-model="is_admin"
+              label="Admin View"
+              color="red"
+              hide-details
+            />
+          </h3>
+        </v-col>
+        <v-col>
+          الوقت الان : {{ $luxon(shift.now) }}
+        </v-col>
+        <v-col>
+          الحالة : {{ shift_validity ? "جاهز" : "لم يتم تحديث الوردية برجاء مراجعة مدير النظام" }}
         </v-col>
       </v-row>
       <hr>
       <v-row>
         <v-col cols="3">
           <v-row>
-            <v-col cols="12">
-              <h5>معلومات الوردية</h5>
-              <v-list dense>
-                <v-list-item>
-                  تاريخ الفتح : {{ $luxon(shift.created_at) }}
-                </v-list-item>
-                <v-list-item>
-                  الوقت الان : {{ $luxon(shift.now) }}
-                </v-list-item>
-                <v-list-item>
-                  رقم الوردية : {{ shift.id }}
-                </v-list-item>
-                <v-list-item>
-                  الحالة : {{ shift_validity ? "جاهز" : "لم يتم تحديث الوردية برجاء مراجعة مدير النظام" }}
-                </v-list-item>
-              </v-list>
-            </v-col>
             <hr>
             <v-col cols="12">
               <v-row>
@@ -98,20 +95,26 @@
             >
               <v-tabs-slider color="indigo" />
               <v-tab href="#tab-1">
+                باركود
+                <v-icon class="mx-2">
+                  mdi-barcode
+                </v-icon>
+              </v-tab>
+              <v-tab href="#tab-2">
                 المبيعات
                 <v-icon class="mx-2">
                   mdi-basket
                 </v-icon>
               </v-tab>
 
-              <v-tab href="#tab-2">
+              <v-tab href="#tab-3">
                 الصيانة
                 <v-icon class="mx-2">
                   mdi-wrench
                 </v-icon>
               </v-tab>
 
-              <v-tab href="#tab-3">
+              <v-tab href="#tab-4">
                 IPTV
                 <v-icon class="mx-2">
                   mdi-television-play
@@ -121,106 +124,8 @@
             <v-tabs-items v-model="tab">
               <v-tab-item value="tab-1">
                 <v-row>
-                  <v-col :cols="is_admin || current_invoice && current_invoice.is_invoice ? '4' : '12'">
+                  <v-col cols="12">
                     <product-sell :invoice-id="selected_invoice" :shift-id="shift.id" @itemSubmited="get_invoice" />
-                  </v-col>
-                  <v-col v-if="is_admin || current_invoice && current_invoice.is_invoice" cols="8">
-                    <v-simple-table>
-                      <template #default>
-                        <thead>
-                          <tr>
-                            <th class="text-center">
-                              رقم الحركة
-                            </th>
-                            <th class="text-center">
-                              نوع الحركة
-                            </th>
-                            <th class="text-center">
-                              إسم الصنف
-                            </th>
-                            <th class="text-center">
-                              السعر
-                            </th>
-                            <th class="text-center">
-                              الخصم
-                            </th>
-                            <th class="text-center">
-                              الكمية
-                            </th>
-                            <th class="text-center">
-                              الاجمالي
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="item in current_invoice.items" :key="item.id">
-                            <td class="text-center">
-                              {{ item.id }}
-                            </td>
-                            <td class="text-center">
-                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
-                                مبيعات
-                              </span>
-                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
-                                IPTV
-                              </span>
-                              <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
-                                صيانة
-                              </span>
-                            </td>
-                            <td class="text-center">
-                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
-                                {{ item.invoicable.product_name }}
-                              </span>
-                              <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
-                                {{ item.invoicable.ServerName }}
-                              </span>
-                              <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
-                                {{ item.invoicable.device.device_name }}
-                              </span>
-                            </td>
-                            <td class="text-center">
-                              <span :class="item.discount > 0 ? 'text-decoration-line-through' : ''">{{ item.invoicable_type === "Synciteg\\PosSystem\\Models\\Product" ? item.invoicable.original_price : item.selling_price }}</span> <span :class="item.discount > 0 ? '' : 'd-none' ">|| {{ item.selling_price }}</span>
-                            </td>
-                            <td class="text-center">
-                              {{ item.fixed_discount ? item.discount + ' جنيه' : item.discount + ' %' }}
-                            </td>
-                            <td class="text-center">
-                              {{ item.quantity }}
-                            </td>
-                            <td class="text-center">
-                              {{ item.total }}
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <td colspan="2">
-                              الإجمالي قبل الخصم
-                            </td>
-                            <td colspan="2">
-                              {{ current_invoice.meta ? current_invoice.meta.totalBeforeDiscount : '' }} جنيه
-                            </td>
-                            <td colspan="2">
-                              قيمة الخصم
-                            </td>
-                            <td>{{ current_invoice.meta ? current_invoice.meta.discount : '' }} جنيه</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              الإجمالي
-                            </td>
-                            <td colspan="2">
-                              {{ current_invoice.meta ? current_invoice.meta.total : '' }} جنيه
-                            </td>
-                            <td colspan="2">
-                              عدد القطع
-                            </td>
-                            <td>{{ current_invoice.meta ? current_invoice.meta.count : '' }} قطعه</td>
-                          </tr>
-                        </tfoot>
-                      </template>
-                    </v-simple-table>
                   </v-col>
                 </v-row>
               </v-tab-item>
@@ -232,6 +137,106 @@
               </v-tab-item>
             </v-tabs-items>
           </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col v-if="is_admin || current_invoice && current_invoice.is_invoice" cols="12">
+          <v-simple-table>
+            <template #default>
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    رقم الحركة
+                  </th>
+                  <th class="text-center">
+                    نوع الحركة
+                  </th>
+                  <th class="text-center">
+                    إسم الصنف
+                  </th>
+                  <th class="text-center">
+                    السعر
+                  </th>
+                  <th class="text-center">
+                    الخصم
+                  </th>
+                  <th class="text-center">
+                    الكمية
+                  </th>
+                  <th class="text-center">
+                    الاجمالي
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in current_invoice.items" :key="item.id">
+                  <td class="text-center">
+                    {{ item.id }}
+                  </td>
+                  <td class="text-center">
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
+                      مبيعات
+                    </span>
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
+                      IPTV
+                    </span>
+                    <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
+                      صيانة
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
+                      {{ item.invoicable.product_name }}
+                    </span>
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
+                      {{ item.invoicable.ServerName }}
+                    </span>
+                    <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
+                      {{ item.invoicable.device.device_name }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span :class="item.discount > 0 ? 'text-decoration-line-through' : ''">{{ item.invoicable_type === "Synciteg\\PosSystem\\Models\\Product" ? item.invoicable.original_price : item.selling_price }}</span> <span :class="item.discount > 0 ? '' : 'd-none' ">|| {{ item.selling_price }}</span>
+                  </td>
+                  <td class="text-center">
+                    {{ item.fixed_discount ? item.discount + ' جنيه' : item.discount + ' %' }}
+                  </td>
+                  <td class="text-center">
+                    {{ item.quantity }}
+                  </td>
+                  <td class="text-center">
+                    {{ item.total }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2">
+                    الإجمالي قبل الخصم
+                  </td>
+                  <td colspan="2">
+                    {{ current_invoice.meta ? current_invoice.meta.totalBeforeDiscount : '' }} جنيه
+                  </td>
+                  <td colspan="2">
+                    قيمة الخصم
+                  </td>
+                  <td>{{ current_invoice.meta ? current_invoice.meta.discount : '' }} جنيه</td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    الإجمالي
+                  </td>
+                  <td colspan="2">
+                    {{ current_invoice.meta ? current_invoice.meta.total : '' }} جنيه
+                  </td>
+                  <td colspan="2">
+                    عدد القطع
+                  </td>
+                  <td>{{ current_invoice.meta ? current_invoice.meta.count : '' }} قطعه</td>
+                </tr>
+              </tfoot>
+            </template>
+          </v-simple-table>
         </v-col>
       </v-row>
     </v-container>
@@ -252,6 +257,7 @@ export default {
   data () {
     return {
       tab: 0,
+      is_admin: false,
       current_invoice: [],
       customer_id: null,
       active_invoices: []
@@ -270,9 +276,9 @@ export default {
     shift_validity () {
       return this.$store.state.shift_validity
     },
-    is_admin () {
-      return this.$store.state.auth.user.role === 'admin'
-    },
+    // is_admin () {
+    //   return this.$store.state.auth.user.role === 'admin'
+    // },
     active_invoices_arr () {
       const data = []
       this.active_invoices.forEach((element) => {

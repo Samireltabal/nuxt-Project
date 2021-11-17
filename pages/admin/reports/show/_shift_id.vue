@@ -1,11 +1,6 @@
 <template>
   <v-layout>
     <v-container fluid>
-      <v-row v-if="showPerHour">
-        <pre>
-          {{ report.report.grouped_data }}
-        </pre>
-      </v-row>
       <v-row>
         <v-col>
           <v-btn color="indigo" dark large @click="$fetch()">
@@ -15,40 +10,98 @@
             <v-icon>mdi-refresh</v-icon> إعادة توليد التقرير
           </v-btn>
         </v-col>
-        <v-col>
-          <RenderLineShift v-if="showPerHour" head="Sales Per Hour" color="#2ecc71" :keys="report.report.per_hour.keys" :values="report.report.per_hour.values" />
+      </v-row>
+      <v-row v-if="showPerHour">
+        <v-col v-if="showPerHour" cols="6">
+          <v-row>
+            <v-col cols="12">
+              <RenderDoughnutShift v-if="showPerHour" head="Sales Per Type" :keys="report.report.per_type.keys" :values="report.report.per_type.values" />
+            </v-col>
+            <v-col cols="12">
+              <RenderLineShift v-if="showPerHour" head="Sales Per Hour" color="#2ecc71" :keys="report.report.per_hour.keys" :values="report.report.per_hour.values" />
+            </v-col>
+          </v-row>
         </v-col>
-        <v-col>
-          <RenderDoughnutShift v-if="showPerHour" head="Sales Per Type" :keys="report.report.per_type.keys" :values="report.report.per_type.values" />
-        </v-col>
-        <v-col>
-          <v-list v-if="showPerHour">
-            <v-list-item v-for="(item, key) in report.report.main_sales_items" :key="key">
-              <v-card>
-                <v-card-title>
-                  {{ key }}
-                </v-card-title>
-                <v-card-text>
-                  <v-list>
-                    <v-list-item v-for="(value, order) in item" :key="order">
-                      <v-card>
-                        <v-card-title>
-                          {{ order }}
-                        </v-card-title>
-                        <v-card-text>
-                          <v-list>
-                            <v-list-item v-for="single in value" :key="single.id">
-                              {{ single.invoicable }} | {{ single.total }} | {{ single.quantity }}
-                            </v-list-item>
-                          </v-list>
-                        </v-card-text>
-                      </v-card>
-                    </v-list-item>
-                  </v-list>
-                </v-card-text>
-              </v-card>
-            </v-list-item>
-          </v-list>
+        <v-col v-if="showPerHour" cols="6">
+          <v-simple-table v-if="showPerHour">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    نوع الخدمة
+                  </th>
+                  <th class="text-center">
+                    إسم السجل
+                  </th>
+                  <th>متوسط السعر</th>
+                  <th>الكمية</th>
+                  <th>الإجمالي</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in report.report.table.items"
+                  :key="item.name"
+                >
+                  <td>{{ item.type }}</td>
+                  <td v-html="item.name" />
+                  <td>{{ item.average_price }} جنيه</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.total }} جنيه</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    المبيعات
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.income_splitted.sales.total }} جنيه
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    الصيانة
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.income_splitted.maintenance }} جنيه
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    IPTV
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.income_splitted.iptv }} جنيه
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    الاجمالي
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.total }} جنيه
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    المصاريف
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.expenses }} جنيه
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    المشتريات
+                  </td>
+                  <td colspan="2">
+                    {{ report.report.table.meta.purchase }} جنيه
+                  </td>
+                </tr>
+              </tfoot>
+            </template>
+          </v-simple-table>
         </v-col>
       </v-row>
     </v-container>
