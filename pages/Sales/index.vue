@@ -125,14 +125,17 @@
               <v-tab-item value="tab-1">
                 <v-row>
                   <v-col cols="12">
-                    <product-sell :invoice-id="selected_invoice" :shift-id="shift.id" @itemSubmited="get_invoice" />
+                    <barcode-sell :invoice-id="selected_invoice" :shift-id="shift.id" @itemSubmited="get_invoice" />
                   </v-col>
                 </v-row>
               </v-tab-item>
               <v-tab-item value="tab-2">
-                <maintainence-sell />
+                <product-sell :invoice-id="selected_invoice" :shift-id="shift.id" @itemSubmited="get_invoice" />
               </v-tab-item>
               <v-tab-item value="tab-3">
+                <maintainence-sell />
+              </v-tab-item>
+              <v-tab-item value="tab-4">
                 <IPTV-sell />
               </v-tab-item>
             </v-tabs-items>
@@ -243,12 +246,14 @@
   </v-layout>
 </template>
 <script>
+import BarcodeSell from '../../components/Sales/BarcodeSell.vue'
 import ProductSell from '../../components/Sales/ProductSell.vue'
 import IPTVSell from '../../components/Sales/IPTVSell.vue'
 import MaintainenceSell from '../../components/Sales/MaintainenceSell.vue'
 import CustomerForm from '../../components/Maintenance/CustomerForm.vue'
 export default {
   components: {
+    BarcodeSell,
     ProductSell,
     MaintainenceSell,
     IPTVSell,

@@ -29,10 +29,41 @@
     <v-app-bar
       :clipped-left="clipped"
       fixed
+      extension-height="36"
+      color="indigo"
+      dense
+      dark
       app
     >
       <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
       <v-toolbar-title v-text="title" />
+      <template #extension>
+        <v-tabs align-with-title>
+          <v-tab @click="$router.push('/')">
+            <v-icon class="mx-2">mdi-home</v-icon> الرئيسية
+          </v-tab>
+          <v-tab @click="$router.push('/Sales')">
+            <v-icon class="mx-2">
+              mdi-basket
+            </v-icon>
+            المبيعات
+          </v-tab>
+          <v-tab @click="$router.push('/maintenance')">
+            <v-icon class="mx-2">
+              mdi-wrench
+            </v-icon>
+            الصيانة
+          </v-tab>
+          <v-tab @click="$router.push('/Sales?tab=tab-4')">
+            <v-icon class="mx-2">
+              mdi-television-play
+            </v-icon>
+            IPTV
+          </v-tab>
+        </v-tabs>
+      </template>
+      <v-spacer />
+      <Auth />
     </v-app-bar>
     <v-main>
       <v-container fluid>
@@ -49,7 +80,11 @@
 </template>
 
 <script>
+import Auth from '../components/Auth.vue'
 export default {
+  components: {
+    Auth
+  },
   middleware: ['shift'],
   data () {
     return {
@@ -103,7 +138,7 @@ export default {
       miniVariant: true,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'بيت الإلكترونيات'
     }
   },
   computed: {
