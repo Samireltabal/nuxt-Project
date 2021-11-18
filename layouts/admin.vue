@@ -130,6 +130,13 @@ export default {
           to: '/admin/products'
         },
         {
+          icon: 'mdi-select-group',
+          title: 'Bundles',
+          logged_in: true,
+          admin_only: true,
+          to: '/admin/bundles'
+        },
+        {
           icon: 'mdi-youtube-tv',
           title: 'Iptv',
           logged_in: true,
