@@ -6,7 +6,9 @@
           <h3>باندل</h3>
         </v-col>
         <v-col>
-          {{ bundle }}
+          <pre>
+            {{ bundle }}
+          </pre>
         </v-col>
       </v-row>
     </v-container>
@@ -15,6 +17,7 @@
 <script>
 export default {
   name: 'Bundle',
+  layout: 'admin',
   data () {
     return {
       bundle: {}

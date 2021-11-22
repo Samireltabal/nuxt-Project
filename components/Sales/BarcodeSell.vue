@@ -119,7 +119,7 @@ export default {
       this.$axios.post('/pos/sales/barcode/query', data).then((response) => {
         this.barcodeReturn = response.data
         if (!response.data.device) {
-          this.selling_price = response.data.original_price
+          this.selling_price = response.data.original_price ? response.data.original_price : response.data.price
           this.sellable_type = 'بيع منتج'
           this.is_record = true
           document.getElementById('price').focus()

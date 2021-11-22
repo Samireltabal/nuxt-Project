@@ -180,6 +180,9 @@
                     <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Product&quot;">
                       مبيعات
                     </span>
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Bundle&quot;">
+                      باندل
+                    </span>
                     <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
                       IPTV
                     </span>
@@ -193,6 +196,9 @@
                     </span>
                     <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\IptvSubscription&quot;">
                       {{ item.invoicable.ServerName }}
+                    </span>
+                    <span v-if="item.invoicable_type === &quot;Synciteg\\PosSystem\\Models\\Bundle&quot;">
+                      {{ item.invoicable.name }}
                     </span>
                     <span v-if="item.invoicable_type === &quot;Syncit\\MaintenanceCenter\\Models\\Record&quot;">
                       {{ item.invoicable.device.device_name }}

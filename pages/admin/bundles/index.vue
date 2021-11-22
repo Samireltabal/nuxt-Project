@@ -279,8 +279,8 @@ export default {
       this.$router.push(uri)
     },
     submitBundle () {
-      this.$axios.post('/pos/bundles', this.form_data).then((response) => {
-        console.log(response.data)
+      this.$axios.post('/pos/bundles', this.form_data).then(() => {
+        this.$fetch()
       })
     }
   }

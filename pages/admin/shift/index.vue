@@ -173,6 +173,14 @@
               </tr>
               <tr>
                 <td colspan="3">
+                  بنادل
+                </td>
+                <td colspan="2">
+                  {{ report.report.table.meta.income_splitted.sales.bundles }} جنيه
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
                   الاجمالي
                 </td>
                 <td colspan="2">
